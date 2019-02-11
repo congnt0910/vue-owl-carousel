@@ -227,7 +227,15 @@ export default {
   },
 
   mounted: function() {
-    this.$nextTick(() => {
+      this.init();
+  },
+
+  methods: {
+    generateUniqueId() {
+      return Math.random().toString(36).substring(2, 15);
+    },
+
+    init() {
       this.owl = $('#' + this.elementHandle).owlCarousel({
         items: this.items,
         margin: this.margin,
@@ -312,19 +320,19 @@ export default {
           }
         });
       }
-    })
-
-  },
-
-  methods: {
-    generateUniqueId() {
-      return Math.random().toString(36).substring(2, 15);
     },
 
     refresh() {
       this.owl.trigger('refresh.owl.carousel');
+    },
+
+    destroy() {
+      if (this.owl) {
+        this.owl.owlCarousel('destroy');
+      }
     }
   },
+
 };
 
 </script>
